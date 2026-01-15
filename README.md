@@ -1,6 +1,6 @@
 # Agentic AI R&D project
 
-농업 도메인 특화 LLM 시스템 구축을 위한 R&D
+영농형 태양광 도메인 특화 LLM 시스템 구축을 위한 R&D
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org/)
