@@ -1,0 +1,33 @@
+# Agent Configuration
+
+supervisor:
+  max_iterations: 5
+  model: "gpt-4o-mini"  # or "gpt-4o" for better performance
+  temperature: 0.1
+
+rag_agent:
+  enabled: true
+  retrieve_top_k: 20
+  rerank_top_k: 5
+
+tool_agent:
+  enabled: true
+  available_tools:
+    - predict_yield
+    - predict_temperature
+    - optimize_panel_angle
+    - get_weather
+
+conversation_agent:
+  enabled: true
+  max_history: 10
+  system_prompt: |
+    당신은 농업 도메인 전문 AI 어시스턴트입니다.
+    사용자의 질문에 정확하고 도움이 되는 답변을 제공합니다.
+    필요한 경우 도구를 사용하거나 문서를 검색합니다.
+
+llm:
+  default_model: "gpt-4o-mini"
+  temperature: 0.7
+  max_tokens: 1024
+  streaming: true

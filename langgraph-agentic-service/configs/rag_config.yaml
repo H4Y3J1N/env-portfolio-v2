@@ -1,0 +1,41 @@
+# RAG Configuration
+
+embedder:
+  model_name: "BAAI/bge-m3"
+  use_fp16: true
+  device: "cuda"  # or "cpu"
+  batch_size: 32
+
+retriever:
+  # Hybrid search weights
+  dense_weight: 0.7
+  sparse_weight: 0.3
+
+  # Search parameters
+  top_k: 20
+
+  # RRF fusion parameter
+  rrf_k: 60
+
+reranker:
+  model_name: "BAAI/bge-reranker-v2-m3"
+  device: "cuda"  # or "cpu"
+  max_length: 512
+  top_k: 5
+
+vector_store:
+  type: "chroma"  # or "milvus"
+
+  chroma:
+    persist_directory: "./data/chroma"
+    collection_name: "agriculture_docs"
+
+  milvus:
+    host: "localhost"
+    port: 19530
+    collection_name: "agriculture_docs"
+
+chunking:
+  chunk_size: 512
+  chunk_overlap: 50
+  separator: "\n\n"

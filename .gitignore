@@ -152,6 +152,7 @@ $RECYCLE.BIN/
 secrets/
 credentials/
 config.local.yaml
+docs/
 
 # ============================================
 # Misc

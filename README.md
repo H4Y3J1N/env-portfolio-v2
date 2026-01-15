@@ -10,20 +10,19 @@
 
 ## Overview
 
-이 레포지토리는 **LLM 파인튜닝 → 고성능 서빙 → RAG 최적화**까지 프로덕션 AI 시스템 구축에 필요한 기술을 R&D 하기 위해 만들어졌습니다.
+이 레포지토리는 **LLM 파인튜닝 → 고성능 서빙 → RAG 최적화 → Multi-Agent 통합**까지 프로덕션 AI 시스템 구축에 필요한 기술을 R&D 하기 위해 만들어졌습니다.
 
 ```
-┌─────────────────────────────────────────────────────────────────────┐
-│                        AI/ML Pipeline                                │
-├─────────────────┬─────────────────────┬─────────────────────────────┤
-│   Project 1     │     Project 2       │        Project 3            │
-│  Fine-tuning    │   High-Performance  │     RAG Optimization        │
-│                 │      Serving        │                             │
-├─────────────────┼─────────────────────┼─────────────────────────────┤
-│  QLoRA 학습     │   vLLM Engine       │   Chunking 전략 비교        │
-│  Tool Calling   │   Microservices     │   벡터 검색 최적화          │
-│  실험 관리      │   Docker 배포       │   정량적 평가               │
-└─────────────────┴─────────────────────┴─────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────────────────────┐
+│                               AI/ML Pipeline                                          │
+├─────────────────┬──────────────────┬──────────────────┬──────────────────────────────┤
+│   Project 1     │    Project 2     │    Project 3     │         Project 4            │
+│  Fine-tuning    │  High-Perf Serve │ RAG Optimization │    Agentic Service           │
+├─────────────────┼──────────────────┼──────────────────┼──────────────────────────────┤
+│  QLoRA 학습     │  vLLM Engine     │  Chunking 전략   │  LangGraph Multi-Agent       │
+│  Tool Calling   │  Microservices   │  벡터 검색       │  Hybrid RAG + SSE            │
+│  실험 관리      │  Docker 배포     │  정량적 평가     │  Redis Session + Langfuse    │
+└─────────────────┴──────────────────┴──────────────────┴──────────────────────────────┘
 ```
 
 ---
@@ -143,6 +142,72 @@ rag-chunking-experiments/
 
 ---
 
+### 🤖 Project 4: LangGraph Agentic Service
+
+> **Multi-Agent RAG 시스템 - LangGraph Supervisor Pattern + Hybrid RAG + SSE Streaming**
+
+LangGraph 기반 Supervisor Pattern으로 여러 Agent를 오케스트레이션하는 프로덕션급 서비스입니다. Hybrid RAG, SSE 스트리밍, Redis 세션 관리, Langfuse 모니터링, RAGAS 평가를 통합한 End-to-End 솔루션입니다.
+
+**핵심 기술:**
+- **LangGraph StateGraph**: Supervisor Pattern으로 RAG/Tool/Conversation Agent 라우팅
+- **Hybrid RAG**: BGE-M3 (Dense + Sparse Embedding) + RRF Fusion + Cross-Encoder Reranker
+- **FastAPI + SSE**: Server-Sent Events 기반 실시간 스트리밍 응답
+- **Redis Session**: Multi-turn 대화 컨텍스트 관리 (24시간 TTL)
+- **Langfuse Monitoring**: 토큰 사용량, 지연시간, 품질 메트릭 추적
+- **Multi-tenant LoRA**: vLLM 동적 LoRA 어댑터 로딩 (국가별/테넌트별)
+- **RAGAS Evaluation**: Faithfulness, Answer Relevancy, Context Precision/Recall 평가
+
+**아키텍처:**
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                      FastAPI + SSE Streaming                    │
+│         /chat/stream  │  /agent/execute  │  /health            │
+└─────────────────────────────────────────────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│                    LangGraph StateGraph                         │
+│  ┌──────────┐    ┌─────────────┐    ┌──────────────────────┐   │
+│  │Supervisor│───▶│  RAG Agent  │───▶│ Conversation Agent   │   │
+│  │  Agent   │───▶│ Tool Agent  │    │                      │   │
+│  └──────────┘    └─────────────┘    └──────────────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+         │                  │                      │
+         ▼                  ▼                      ▼
+┌─────────────┐    ┌──────────────┐    ┌──────────────────────┐
+│   Redis     │    │ Hybrid RAG   │    │      vLLM            │
+│   Session   │    │ BGE-M3+RRF   │    │  Multi-LoRA          │
+└─────────────┘    └──────────────┘    └──────────────────────┘
+```
+
+**RAGAS 평가 결과 (Mock 기준):**
+| Metric | Score | 설명 |
+|--------|-------|------|
+| Faithfulness | 0.82 | 답변이 컨텍스트에 충실한 정도 |
+| Answer Relevancy | 0.85 | 답변이 질문과 관련된 정도 |
+| Context Precision | 0.78 | 검색된 컨텍스트의 정확도 |
+| Context Recall | 0.80 | 필요 정보가 검색된 비율 |
+
+```
+langgraph-agentic-service/
+├── src/
+│   ├── agents/          # LangGraph Multi-Agent (Supervisor, RAG, Tool, Conversation)
+│   ├── rag/             # Hybrid RAG Pipeline (BGE-M3, RRF, Reranker)
+│   ├── api/             # FastAPI + SSE Streaming
+│   ├── session/         # Redis Session Management
+│   ├── monitoring/      # Langfuse Integration
+│   ├── inference/       # vLLM Client + Multi-tenant LoRA
+│   ├── tools/           # Domain-specific Tools
+│   └── evaluation/      # RAGAS Evaluator
+├── configs/             # YAML 설정 파일
+├── docker-compose.yml   # Redis, ChromaDB, vLLM, Langfuse
+└── Dockerfile
+```
+
+[📁 상세 보기](./langgraph-agentic-service/)
+
+---
+
 ## Tech Stack
 
 ### Models & Frameworks
@@ -151,14 +216,17 @@ rag-chunking-experiments/
 | **Base Model** | Qwen2.5-7B-Instruct, Qwen2.5-7B-Instruct-AWQ |
 | **Fine-tuning** | QLoRA, PEFT, TRL, bitsandbytes |
 | **Serving** | vLLM, FastAPI, Uvicorn |
-| **Embedding** | BAAI/bge-m3, Sentence-Transformers |
-| **Vector DB** | FAISS |
+| **Embedding** | BAAI/bge-m3 (Dense+Sparse), Sentence-Transformers |
+| **Reranker** | BAAI/bge-reranker-v2-m3 (Cross-Encoder) |
+| **Vector DB** | FAISS, ChromaDB |
+| **Agent Framework** | LangGraph, LangChain |
 
 ### Infrastructure
 | Category | Technologies |
 |----------|-------------|
 | **Container** | Docker, Docker Compose |
-| **Monitoring** | Prometheus, Grafana |
+| **Monitoring** | Prometheus, Grafana, Langfuse |
+| **Session/Cache** | Redis |
 | **GPU** | CUDA 12.1+, NVIDIA Container Toolkit |
 
 ### Development
@@ -166,6 +234,8 @@ rag-chunking-experiments/
 |----------|-------------|
 | **Language** | Python 3.10+ |
 | **ML Framework** | PyTorch 2.0+ |
+| **API** | FastAPI, SSE (Server-Sent Events) |
+| **Evaluation** | RAGAS (Faithfulness, Relevancy, Precision, Recall) |
 | **Experiment Tracking** | Weights & Biases (optional) |
 | **Testing** | pytest, Locust |
 
@@ -200,34 +270,46 @@ docker-compose up -d
 cd ../rag-chunking-experiments
 pip install -r requirements.txt
 python run_experiments.py --all
+
+# Project 4: Agentic Service
+cd ../langgraph-agentic-service
+pip install -r requirements.txt
+docker-compose up -d  # Redis, ChromaDB
+uvicorn src.api.main:app --reload --port 8000
 ```
 
 ---
 
 ## Project Interconnections
 
-세 프로젝트는 실제 AI 시스템 구축 파이프라인을 반영합니다:
+네 프로젝트는 실제 AI 시스템 구축 파이프라인을 반영하며, **Project 4가 전체를 통합**합니다:
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    Production AI System                          │
-│                                                                  │
-│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐      │
-│  │  Project 1   │    │  Project 2   │    │  Project 3   │      │
-│  │  Fine-tuned  │───▶│   Served     │◀───│  RAG-enabled │      │
-│  │    Model     │    │   via vLLM   │    │   Context    │      │
-│  └──────────────┘    └──────────────┘    └──────────────┘      │
-│         │                   │                   │               │
-│         ▼                   ▼                   ▼               │
-│  ┌─────────────────────────────────────────────────────────┐   │
-│  │              User Query: "토마토 수확량 예측해줘"         │   │
-│  │                                                          │   │
-│  │  1. RAG: 관련 농업 문서 검색 (Project 3)                 │   │
-│  │  2. Serving: vLLM으로 고속 추론 (Project 2)              │   │
-│  │  3. Tool Calling: predict_yield 도구 호출 (Project 1)   │   │
-│  │  4. Response: "예상 수확량은 3.2톤/ha입니다"             │   │
-│  └─────────────────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         Production AI System                                 │
+│                                                                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐    │
+│  │  Project 1   │  │  Project 2   │  │  Project 3   │  │  Project 4   │    │
+│  │  Fine-tuned  │─▶│   Served     │◀─│  RAG-enabled │─▶│   Agentic    │    │
+│  │    Model     │  │   via vLLM   │  │   Context    │  │   Service    │    │
+│  └──────────────┘  └──────────────┘  └──────────────┘  └──────────────┘    │
+│         │                 │                 │                 │             │
+│         └─────────────────┴─────────────────┴─────────────────┘             │
+│                                     │                                       │
+│                                     ▼                                       │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                User Query: "토마토 수확량 예측해줘"                  │   │
+│  │                                                                      │   │
+│  │  1. [Project 4] Supervisor Agent가 의도 파악 → Tool Agent 라우팅    │   │
+│  │  2. [Project 3] Hybrid RAG로 농업 문서 검색 (Dense+Sparse+Rerank)   │   │
+│  │  3. [Project 2] vLLM + LoRA 어댑터로 고속 추론                      │   │
+│  │  4. [Project 1] Tool Calling으로 predict_yield 도구 호출            │   │
+│  │  5. [Project 4] SSE Streaming으로 실시간 응답 + Redis 세션 저장     │   │
+│  │  6. [Project 4] Langfuse로 토큰/지연시간 모니터링 + RAGAS 평가      │   │
+│  │                                                                      │   │
+│  │  Response (SSE Stream): "100평 토마토 예상 수확량은 2.6톤입니다"    │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+└─────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -239,18 +321,23 @@ python run_experiments.py --all
 1. **메모리 효율적 학습**: QLoRA로 16GB GPU에서 7B 모델 파인튜닝
 2. **프로덕션 아키텍처**: API/추론 분리로 독립적 스케일링 가능
 3. **정량적 의사결정**: 실험 기반으로 최적 전략 선택
+4. **End-to-End 통합**: Multi-Agent로 RAG + Tool + LLM 오케스트레이션
 
 ### 📈 기술적 깊이
 
 - vLLM의 PagedAttention 동작 원리 이해
 - Tool Calling 포맷 설계 및 파싱 구현
 - Retrieval 평가 메트릭 (Precision, Recall, MRR) 직접 구현
+- LangGraph StateGraph + Supervisor Pattern 설계
+- Hybrid RAG (Dense + Sparse + RRF Fusion) 구현
+- RAGAS 평가 프레임워크 적용
 
 ### 📝 문서화
 
 - 각 프로젝트별 상세 README
 - 실험 방법론 및 결과 분석 문서
 - 재현 가능한 실험 설정 (YAML configs)
+- Docker Compose 기반 원클릭 배포
 
 ---
 
@@ -274,9 +361,23 @@ env-portfolio-v2/
 │   ├── benchmarks/
 │   └── monitoring/
 │
-└── rag-chunking-experiments/      # Project 3: RAG
+├── rag-chunking-experiments/      # Project 3: RAG
+│   ├── src/
+│   ├── notebooks/
+│   ├── data/
+│   └── results/
+│
+└── langgraph-agentic-service/     # Project 4: Agentic Service (통합)
     ├── src/
-    ├── notebooks/
-    ├── data/
-    └── results/
+    │   ├── agents/                # LangGraph Multi-Agent
+    │   ├── rag/                   # Hybrid RAG Pipeline
+    │   ├── api/                   # FastAPI + SSE
+    │   ├── session/               # Redis Session
+    │   ├── monitoring/            # Langfuse Integration
+    │   ├── inference/             # vLLM + LoRA
+    │   ├── tools/                 # Domain Tools
+    │   └── evaluation/            # RAGAS Evaluator
+    ├── configs/
+    ├── docker-compose.yml
+    └── Dockerfile
 ```

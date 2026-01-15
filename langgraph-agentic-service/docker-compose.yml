@@ -1,0 +1,196 @@
+version: '3.8'
+
+services:
+  # ==========================================
+  # Main Application Service
+  # ==========================================
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: langgraph-api
+    ports:
+      - "8000:8000"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - VLLM_API_URL=http://vllm:8080
+      - LANGFUSE_HOST=http://langfuse:3000
+      - LANGFUSE_PUBLIC_KEY=${LANGFUSE_PUBLIC_KEY:-pk-lf-test}
+      - LANGFUSE_SECRET_KEY=${LANGFUSE_SECRET_KEY:-sk-lf-test}
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8001
+      - LOG_LEVEL=INFO
+    depends_on:
+      redis:
+        condition: service_healthy
+      chromadb:
+        condition: service_started
+    volumes:
+      - ./configs:/app/configs:ro
+      - ./data:/app/data
+      - model-cache:/app/.cache
+    networks:
+      - langgraph-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
+
+  # ==========================================
+  # Redis - Session Management
+  # ==========================================
+  redis:
+    image: redis:7-alpine
+    container_name: langgraph-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    networks:
+      - langgraph-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # ==========================================
+  # ChromaDB - Vector Store
+  # ==========================================
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: langgraph-chromadb
+    ports:
+      - "8001:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=FALSE
+    networks:
+      - langgraph-network
+    restart: unless-stopped
+
+  # ==========================================
+  # Langfuse - Monitoring (Optional)
+  # ==========================================
+  langfuse:
+    image: langfuse/langfuse:latest
+    container_name: langgraph-langfuse
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@langfuse-db:5432/langfuse
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-your-nextauth-secret}
+      - NEXTAUTH_URL=http://localhost:3000
+      - SALT=${SALT:-your-salt}
+      - TELEMETRY_ENABLED=false
+    depends_on:
+      langfuse-db:
+        condition: service_healthy
+    networks:
+      - langgraph-network
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  langfuse-db:
+    image: postgres:15-alpine
+    container_name: langgraph-langfuse-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=langfuse
+    volumes:
+      - langfuse-db-data:/var/lib/postgresql/data
+    networks:
+      - langgraph-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    profiles:
+      - monitoring
+
+  # ==========================================
+  # vLLM Server (GPU Required)
+  # ==========================================
+  vllm:
+    image: vllm/vllm-openai:latest
+    container_name: langgraph-vllm
+    ports:
+      - "8080:8080"
+    volumes:
+      - model-cache:/root/.cache/huggingface
+      - ./lora_adapters:/app/lora_adapters:ro
+    environment:
+      - HUGGING_FACE_HUB_TOKEN=${HF_TOKEN:-}
+    command: >
+      --model Qwen/Qwen2.5-7B-Instruct
+      --tensor-parallel-size 1
+      --port 8080
+      --enable-lora
+      --max-lora-rank 64
+      --lora-modules
+        korea=/app/lora_adapters/korea
+        japan=/app/lora_adapters/japan
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    networks:
+      - langgraph-network
+    restart: unless-stopped
+    profiles:
+      - gpu
+
+  # ==========================================
+  # Development Tools
+  # ==========================================
+
+  # Redis Commander - Redis GUI
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: langgraph-redis-commander
+    ports:
+      - "8081:8081"
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    depends_on:
+      - redis
+    networks:
+      - langgraph-network
+    restart: unless-stopped
+    profiles:
+      - dev
+
+# ==========================================
+# Networks
+# ==========================================
+networks:
+  langgraph-network:
+    driver: bridge
+
+# ==========================================
+# Volumes
+# ==========================================
+volumes:
+  redis-data:
+    driver: local
+  chroma-data:
+    driver: local
+  model-cache:
+    driver: local
+  langfuse-db-data:
+    driver: local

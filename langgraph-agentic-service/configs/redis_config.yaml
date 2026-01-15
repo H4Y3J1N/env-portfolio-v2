@@ -1,0 +1,16 @@
+# Redis Configuration
+
+connection:
+  url: "redis://localhost:6379"
+  db: 0
+  decode_responses: true
+
+session:
+  key_prefix: "session:"
+  ttl_seconds: 86400  # 24 hours
+  max_messages: 100
+
+rate_limit:
+  enabled: true
+  requests_per_minute: 60
+  key_prefix: "ratelimit:"

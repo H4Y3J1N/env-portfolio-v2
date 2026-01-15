@@ -1,0 +1,49 @@
+# LangGraph & LangChain
+langgraph>=0.2.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-community>=0.3.0
+langchain-openai>=0.2.0
+
+# Embeddings & Reranking
+FlagEmbedding>=1.2.0
+sentence-transformers>=2.2.0
+
+# Vector Database
+chromadb>=0.4.0
+# pymilvus>=2.3.0  # Optional: for Milvus
+
+# FastAPI & Async
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+sse-starlette>=1.8.0
+httpx>=0.26.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+
+# Redis
+redis>=5.0.0
+
+# Monitoring
+langfuse>=2.0.0
+
+# RAG Evaluation
+ragas>=0.1.0
+datasets>=2.16.0
+
+# ML & Utils
+torch>=2.0.0
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Config & Environment
+python-dotenv>=1.0.0
+pyyaml>=6.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.23.0
+
+# Jupyter
+jupyter>=1.0.0
+ipykernel>=6.0.0

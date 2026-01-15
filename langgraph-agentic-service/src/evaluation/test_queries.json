@@ -1,0 +1,147 @@
+{
+  "version": "1.0.0",
+  "description": "스마트팜 RAG 시스템 평가용 테스트 쿼리셋",
+  "created_at": "2025-01-15",
+  "queries": [
+    {
+      "id": "agri_001",
+      "category": "작물관리",
+      "question": "토마토 재배 시 적정 온도와 습도는 얼마인가요?",
+      "ground_truth": "토마토 적정 온도는 낮 25-30도, 밤 15-20도이며, 습도는 60-70%가 적합합니다.",
+      "expected_tools": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "agri_002",
+      "category": "작물관리",
+      "question": "고추 병충해 예방을 위한 관리 방법을 알려주세요.",
+      "ground_truth": "고추 병충해 예방: 적정 온습도 유지, 통풍 관리, 예방적 약제 살포, 감염 식물체 조기 제거가 중요합니다.",
+      "expected_tools": [],
+      "difficulty": "medium"
+    },
+    {
+      "id": "agri_003",
+      "category": "수확량예측",
+      "question": "100평 면적에 토마토를 재배하면 예상 수확량은 얼마인가요?",
+      "ground_truth": "100평(약 330m2)에서 토마토 예상 수확량은 약 2.6톤입니다.",
+      "expected_tools": ["predict_yield"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "agri_004",
+      "category": "기상정보",
+      "question": "내일 서울 날씨는 어떤가요?",
+      "ground_truth": null,
+      "expected_tools": ["get_weather"],
+      "difficulty": "easy"
+    },
+    {
+      "id": "agri_005",
+      "category": "기상정보",
+      "question": "다음 주 수요일 오후 2시의 예상 기온을 알려주세요.",
+      "ground_truth": null,
+      "expected_tools": ["predict_temperature"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "agri_006",
+      "category": "태양광",
+      "question": "제주도(위도 33.5도)에서 오늘 태양광 패널 최적 각도는?",
+      "ground_truth": null,
+      "expected_tools": ["optimize_panel_angle"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "agri_007",
+      "category": "복합질문",
+      "question": "이번 주 날씨를 고려해서 토마토 500평 수확량을 예측해주세요.",
+      "ground_truth": null,
+      "expected_tools": ["get_weather", "predict_yield"],
+      "difficulty": "hard"
+    },
+    {
+      "id": "agri_008",
+      "category": "작물관리",
+      "question": "양파 파종 시기와 수확 시기는 언제인가요?",
+      "ground_truth": "양파 파종: 9월 중순~10월 초순, 정식: 11월, 수확: 다음해 6월입니다.",
+      "expected_tools": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "agri_009",
+      "category": "시설관리",
+      "question": "비닐하우스 환기 시스템 관리 방법을 알려주세요.",
+      "ground_truth": "환기 시스템: 온도 센서 기반 자동 개폐, 아침 일찍 환기 시작, 오후 늦게 닫기, 정기 점검 필요합니다.",
+      "expected_tools": [],
+      "difficulty": "medium"
+    },
+    {
+      "id": "agri_010",
+      "category": "복합질문",
+      "question": "서울 위치에서 현재 날씨 기준으로 태양광 발전 효율과 패널 최적 각도를 알려주세요.",
+      "ground_truth": null,
+      "expected_tools": ["get_weather", "optimize_panel_angle"],
+      "difficulty": "hard"
+    },
+    {
+      "id": "agri_011",
+      "category": "작물관리",
+      "question": "감자 심는 깊이와 간격은 얼마가 적당한가요?",
+      "ground_truth": "감자 심는 깊이: 10-15cm, 포기 간격: 25-30cm, 이랑 간격: 70-80cm가 적당합니다.",
+      "expected_tools": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "agri_012",
+      "category": "수확량예측",
+      "question": "마늘 200평 재배 시 예상 수확량과 수익성은?",
+      "ground_truth": "200평(660m2)에서 마늘 예상 수확량은 약 1.3톤입니다.",
+      "expected_tools": ["predict_yield"],
+      "difficulty": "medium"
+    },
+    {
+      "id": "agri_013",
+      "category": "병충해",
+      "question": "토마토 잎이 노랗게 변하는 원인과 대처법은?",
+      "ground_truth": "토마토 황화 원인: 영양결핍(질소, 마그네슘), 과습, 바이러스. 대처: 영양제 공급, 배수 개선, 감염체 제거.",
+      "expected_tools": [],
+      "difficulty": "medium"
+    },
+    {
+      "id": "agri_014",
+      "category": "관수관리",
+      "question": "드립 관수 시스템의 장단점은 무엇인가요?",
+      "ground_truth": "장점: 물 절약, 정밀 관수, 병충해 감소. 단점: 초기 비용, 막힘 현상, 정기 관리 필요.",
+      "expected_tools": [],
+      "difficulty": "easy"
+    },
+    {
+      "id": "agri_015",
+      "category": "복합질문",
+      "question": "제주 서귀포에서 내일 날씨를 확인하고, 기온에 따른 고추 관리 방법을 알려주세요.",
+      "ground_truth": null,
+      "expected_tools": ["get_weather", "predict_temperature"],
+      "difficulty": "hard"
+    }
+  ],
+  "evaluation_config": {
+    "metrics": [
+      "faithfulness",
+      "answer_relevancy",
+      "context_precision",
+      "context_recall"
+    ],
+    "weights": {
+      "faithfulness": 0.3,
+      "answer_relevancy": 0.3,
+      "context_precision": 0.2,
+      "context_recall": 0.2
+    },
+    "thresholds": {
+      "excellent": 0.8,
+      "good": 0.6,
+      "fair": 0.4,
+      "poor": 0.0
+    }
+  }
+}
