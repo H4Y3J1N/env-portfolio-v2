@@ -1,0 +1,170 @@
+# ============================================
+# AI/ML Portfolio .gitignore
+# ============================================
+
+# ============================================
+# Python
+# ============================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+.env/
+
+# ============================================
+# Jupyter Notebooks
+# ============================================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# ============================================
+# ML/AI Specific
+# ============================================
+# Model weights and checkpoints
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+checkpoints/
+models/
+*.ckpt
+
+# Hugging Face cache
+.cache/
+huggingface/
+
+# Weights & Biases
+wandb/
+*.wandb
+
+# MLflow
+mlruns/
+mlartifacts/
+
+# Vector databases
+*.faiss
+*.index
+vector_store/
+faiss_index/
+
+# Large data files
+*.parquet
+*.arrow
+*.feather
+
+# ============================================
+# Project Specific
+# ============================================
+# Fine-tuning outputs
+agri-sllm-finetuning/results/*/
+agri-sllm-finetuning/outputs/
+agri-sllm-finetuning/logs/
+
+# vLLM deployment
+vllm-deployment-study/logs/
+vllm-deployment-study/.env
+
+# RAG experiments results (keep .gitkeep)
+rag-chunking-experiments/results/fixed_chunking/*.json
+rag-chunking-experiments/results/recursive_chunking/*.json
+rag-chunking-experiments/results/semantic_chunking/*.json
+rag-chunking-experiments/results/comparison/*.json
+rag-chunking-experiments/results/comparison/*.png
+rag-chunking-experiments/data/processed/*.json
+rag-chunking-experiments/data/processed/*.pkl
+
+# ============================================
+# Docker
+# ============================================
+*.log
+docker-compose.override.yml
+
+# ============================================
+# IDE / Editor
+# ============================================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# ============================================
+# OS Generated
+# ============================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~
+.directory
+
+# ============================================
+# Secrets & Environment
+# ============================================
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+credentials/
+config.local.yaml
+
+# ============================================
+# Misc
+# ============================================
+*.log
+*.tmp
+*.temp
+*.bak
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/

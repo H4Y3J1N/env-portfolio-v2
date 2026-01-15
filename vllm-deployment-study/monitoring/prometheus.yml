@@ -1,0 +1,54 @@
+# ===========================================
+# Prometheus Configuration
+# vLLM Serving 모니터링 설정
+# ===========================================
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'vllm-serving'
+
+# Alertmanager 설정 (옵션)
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# 알림 규칙 파일
+rule_files:
+  - /etc/prometheus/alert.rules.yml
+
+# 스크레이프 대상
+scrape_configs:
+  # Prometheus 자체 메트릭
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+
+  # vLLM Inference Server 메트릭
+  - job_name: 'vllm-inference'
+    static_configs:
+      - targets: ['inference-server:8001']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # API Server 메트릭
+  - job_name: 'api-server'
+    static_configs:
+      - targets: ['api-server:8000']
+    metrics_path: /metrics
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # NVIDIA GPU 메트릭 (dcgm-exporter 사용 시)
+  # - job_name: 'nvidia-gpu'
+  #   static_configs:
+  #     - targets: ['dcgm-exporter:9400']
+
+  # Node Exporter (시스템 메트릭)
+  # - job_name: 'node'
+  #   static_configs:
+  #     - targets: ['node-exporter:9100']

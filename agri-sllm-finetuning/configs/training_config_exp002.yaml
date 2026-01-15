@@ -1,0 +1,64 @@
+# 실험 2: Learning Rate 최적화
+# 목표: Learning Rate를 낮춰서 안정성 개선
+# 가설: 낮은 LR로 더 안정적 학습, 배치 크기 증가로 일반화 성능 향상
+
+experiment:
+  name: "exp-002"
+  description: "Optimized learning rate with larger batch size"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_use_double_quant: true
+  trust_remote_code: true
+
+lora:
+  r: 16
+  lora_alpha: 32
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+training:
+  num_train_epochs: 5  # 3 → 5 (증가)
+  per_device_train_batch_size: 8  # 4 → 8 (증가)
+  per_device_eval_batch_size: 8
+  gradient_accumulation_steps: 2  # 4 → 2 (감소, effective batch = 16)
+  learning_rate: 1.0e-4  # 2e-4 → 1e-4 (감소)
+  weight_decay: 0.01
+  warmup_steps: 100
+  logging_steps: 10
+  save_steps: 100
+  eval_steps: 100
+  save_total_limit: 3
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+
+optimizer:
+  optim: "paged_adamw_8bit"
+  lr_scheduler_type: "cosine"
+
+data:
+  train_file: "data/processed/train.json"
+  val_file: "data/processed/val.json"
+  max_seq_length: 2048
+  dataset_text_field: "text"
+
+misc:
+  fp16: false
+  bf16: true
+  max_grad_norm: 0.3
+  seed: 42
+  output_dir: "results/exp-002"
+  report_to: "none"

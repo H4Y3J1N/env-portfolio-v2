@@ -1,0 +1,478 @@
+[
+  {
+    "id": "test_001",
+    "user_query": "내일 오전 10시 기온을 알려주세요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-01-14T10:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_002",
+    "user_query": "토마토 500제곱미터 수확량 예측해줘.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "tomato", "area_sqm": 500}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_003",
+    "user_query": "위도 37.5, 경도 127.0에서 최적의 패널 각도는?",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 37.5, "longitude": 127.0}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_004",
+    "user_query": "오늘 날씨 어때요?",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_005",
+    "user_query": "이번 주 금요일 날씨를 확인해주세요.",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {"date": "2025-01-17"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_006",
+    "user_query": "고추 300평방미터 수확량이 궁금해요.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "pepper", "area_sqm": 300}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_007",
+    "user_query": "모레 새벽 5시 기온을 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-01-15T05:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_008",
+    "user_query": "상추 1000제곱미터를 3월 15일에 파종하면 수확량이 얼마나 될까요?",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "lettuce", "area_sqm": 1000, "planting_date": "2025-03-15"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_009",
+    "user_query": "겨울철 패널 각도는 어떻게 설정해야 하나요? 위치는 위도 35.2, 경도 128.5입니다.",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 35.2, "longitude": 128.5, "date": "2025-01-15"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_010",
+    "user_query": "오전 시간대에 패널 효율을 높이려면? 농장은 위도 36.8, 경도 127.2에 있어요.",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 36.8, "longitude": 127.2, "time_of_day": "morning"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_011",
+    "user_query": "다음 주 날씨 전망이 어때요?",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {"date": "2025-01-20"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_012",
+    "user_query": "오이 200제곱미터 재배 시 예상 수확량을 알려주세요.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "cucumber", "area_sqm": 200}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_013",
+    "user_query": "서리가 내릴지 확인하고 싶어요. 내일 새벽 4시 기온은?",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-01-14T04:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_014",
+    "user_query": "정오에 최적의 패널 각도는? 위도 38.0, 경도 127.5입니다.",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 38.0, "longitude": 127.5, "time_of_day": "noon"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_015",
+    "user_query": "비가 올 것 같은데 날씨 확인해줘.",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_016",
+    "user_query": "시금치 800제곱미터, 4월 1일 파종 예정입니다. 수확량을 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "spinach", "area_sqm": 800, "planting_date": "2025-04-01"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_017",
+    "user_query": "1월 25일 점심때 기온이 어떨까요?",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-01-25T12:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_018",
+    "user_query": "오후 시간대 패널 각도를 최적화해주세요. 위도 34.5, 경도 126.8입니다.",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 34.5, "longitude": 126.8, "time_of_day": "afternoon"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_019",
+    "user_query": "내일 비가 올까요?",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {"date": "2025-01-14"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_020",
+    "user_query": "배추 600제곱미터의 예상 수확량은?",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "chinese_cabbage", "area_sqm": 600}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_021",
+    "user_query": "7월 15일 오후 2시 기온을 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-07-15T14:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_022",
+    "user_query": "여름철 패널 최적 각도를 알려주세요. 위도 36.5, 경도 127.0입니다.",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 36.5, "longitude": 127.0, "date": "2025-07-01"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_023",
+    "user_query": "이번 주말 날씨가 농작업하기 좋을까요?",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {"date": "2025-01-18"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_024",
+    "user_query": "딸기 400제곱미터 재배하면 얼마나 수확할 수 있나요?",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "strawberry", "area_sqm": 400}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_025",
+    "user_query": "2월 초 새벽 기온이 궁금해요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-02-03T05:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_026",
+    "user_query": "봄철 패널 각도는 어떻게 해야 하나요? 위도 37.2, 경도 127.3입니다.",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 37.2, "longitude": 127.3, "date": "2025-04-15"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_027",
+    "user_query": "주간 날씨 예보를 알려주세요.",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_028",
+    "user_query": "무 700제곱미터, 9월 1일 파종 시 수확량을 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "radish", "area_sqm": 700, "planting_date": "2025-09-01"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_029",
+    "user_query": "오늘 밤 10시 기온 알려주세요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-01-13T22:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_030",
+    "user_query": "가을철 최적 패널 각도가 궁금해요. 위도 35.8, 경도 128.2입니다.",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 35.8, "longitude": 128.2, "date": "2025-10-15"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_031",
+    "user_query": "오늘 습도는 어때요?",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_032",
+    "user_query": "5월 1일 오전 9시 기온 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-05-01T09:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_033",
+    "user_query": "제주도 농장(위도 33.5, 경도 126.5)의 최적 패널 각도는?",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 33.5, "longitude": 126.5}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_034",
+    "user_query": "콩 450제곱미터 수확량을 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "soybean", "area_sqm": 450}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_035",
+    "user_query": "내일 바람이 많이 불까요?",
+    "expected_tool_call": {
+      "name": "get_weather",
+      "arguments": {"date": "2025-01-14"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_036",
+    "user_query": "8월 중순 한낮 기온이 어떨 것 같아요?",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-08-15T13:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_037",
+    "user_query": "강원도 농장(위도 37.8, 경도 128.9)에서 겨울철 패널 각도는?",
+    "expected_tool_call": {
+      "name": "optimize_panel_angle",
+      "arguments": {"latitude": 37.8, "longitude": 128.9, "date": "2025-01-15"}
+    },
+    "category": "factual",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_038",
+    "user_query": "마늘 250제곱미터 수확량이 궁금해요.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "garlic", "area_sqm": 250}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_039",
+    "user_query": "12월 31일 자정 기온을 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-12-31T00:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_040",
+    "user_query": "양파 1000제곱미터 재배 시 예상 수확량은?",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "onion", "area_sqm": 1000}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_041",
+    "user_query": "영농형 태양광에서 재배하기 좋은 작물은 뭐가 있나요?",
+    "expected_tool_call": null,
+    "category": "knowledge",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_042",
+    "user_query": "토마토 최적 재배 온도가 몇 도인지 알려주세요.",
+    "expected_tool_call": null,
+    "category": "knowledge",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_043",
+    "user_query": "태양광 패널 청소는 얼마나 자주 해야 하나요?",
+    "expected_tool_call": null,
+    "category": "knowledge",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_044",
+    "user_query": "수확량 예측해줘",
+    "expected_tool_call": null,
+    "category": "error_handling",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_045",
+    "user_query": "패널 각도 최적화해줘",
+    "expected_tool_call": null,
+    "category": "error_handling",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_046",
+    "user_query": "서울 주식 시세 알려줘",
+    "expected_tool_call": null,
+    "category": "rejection",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_047",
+    "user_query": "안녕하세요!",
+    "expected_tool_call": null,
+    "category": "greeting",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_048",
+    "user_query": "비닐하우스 안에서 재배하면 수확량이 달라지나요?",
+    "expected_tool_call": null,
+    "category": "knowledge",
+    "difficulty": "medium"
+  },
+  {
+    "id": "test_049",
+    "user_query": "파프리카 350제곱미터 수확량이 궁금해요.",
+    "expected_tool_call": {
+      "name": "predict_yield",
+      "arguments": {"crop_type": "paprika", "area_sqm": 350}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  },
+  {
+    "id": "test_050",
+    "user_query": "3월 20일 오후 4시 기온을 예측해주세요.",
+    "expected_tool_call": {
+      "name": "predict_temperature",
+      "arguments": {"datetime": "2025-03-20T16:00:00"}
+    },
+    "category": "factual",
+    "difficulty": "easy"
+  }
+]

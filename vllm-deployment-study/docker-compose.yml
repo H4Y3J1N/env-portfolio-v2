@@ -1,0 +1,144 @@
+version: '3.8'
+
+services:
+  # ===========================================
+  # vLLM Inference Server (GPU)
+  # ===========================================
+  inference-server:
+    build:
+      context: ./inference_server
+      dockerfile: Dockerfile
+    container_name: vllm-inference
+
+    ports:
+      - "8001:8001"
+
+    environment:
+      - CUDA_VISIBLE_DEVICES=0
+      - HF_TOKEN=${HF_TOKEN}
+
+    # GPU 할당
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+    # 모델 캐시 볼륨
+    volumes:
+      - ./models_cache:/root/.cache/huggingface
+      - ./inference_server/config.yaml:/app/config.yaml:ro
+
+    # 헬스 체크 (모델 로딩 시간 고려)
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 180s  # 3분 (모델 로딩)
+
+    networks:
+      - ai-network
+
+    restart: unless-stopped
+
+  # ===========================================
+  # FastAPI API Server (CPU)
+  # ===========================================
+  api-server:
+    build:
+      context: ./api_server
+      dockerfile: Dockerfile
+    container_name: api-server
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      - INFERENCE_SERVER_URL=http://inference-server:8001
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - MOCK_MODE=${MOCK_MODE:-false}
+
+    # Inference 서버가 준비된 후 시작
+    depends_on:
+      inference-server:
+        condition: service_healthy
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+    networks:
+      - ai-network
+
+    restart: unless-stopped
+
+  # ===========================================
+  # Prometheus (Optional - Monitoring)
+  # ===========================================
+  prometheus:
+    image: prom/prometheus:v2.47.0
+    container_name: prometheus
+
+    ports:
+      - "9090:9090"
+
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+
+    networks:
+      - ai-network
+
+    profiles:
+      - monitoring
+
+  # ===========================================
+  # Grafana (Optional - Monitoring)
+  # ===========================================
+  grafana:
+    image: grafana/grafana:10.2.0
+    container_name: grafana
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+
+    depends_on:
+      - prometheus
+
+    networks:
+      - ai-network
+
+    profiles:
+      - monitoring
+
+# ===========================================
+# Networks
+# ===========================================
+networks:
+  ai-network:
+    driver: bridge
+
+# ===========================================
+# Volumes
+# ===========================================
+volumes:
+  prometheus_data:
+  grafana_data:

@@ -1,0 +1,88 @@
+# ===========================================
+# Prometheus Alert Rules
+# vLLM Serving 알림 규칙
+# ===========================================
+
+groups:
+  - name: vllm-serving-alerts
+    rules:
+      # Inference Server 다운
+      - alert: InferenceServerDown
+        expr: up{job="vllm-inference"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Inference Server가 다운되었습니다"
+          description: "Inference Server가 1분 이상 응답하지 않습니다."
+
+      # API Server 다운
+      - alert: APIServerDown
+        expr: up{job="api-server"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API Server가 다운되었습니다"
+          description: "API Server가 1분 이상 응답하지 않습니다."
+
+      # 높은 응답 지연
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, rate(request_latency_seconds_bucket[5m])) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "응답 지연이 높습니다"
+          description: "95th percentile 응답 시간이 5초를 초과했습니다."
+
+      # 높은 에러율
+      - alert: HighErrorRate
+        expr: rate(request_errors_total[5m]) / rate(request_total[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "에러율이 높습니다"
+          description: "에러율이 10%를 초과했습니다."
+
+      # GPU 메모리 부족
+      - alert: GPUMemoryHigh
+        expr: gpu_memory_used_bytes / gpu_memory_total_bytes > 0.95
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "GPU 메모리 사용량이 높습니다"
+          description: "GPU 메모리 사용량이 95%를 초과했습니다."
+
+      # GPU 온도 높음
+      - alert: GPUTemperatureHigh
+        expr: gpu_temperature_celsius > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "GPU 온도가 높습니다"
+          description: "GPU 온도가 80°C를 초과했습니다."
+
+  - name: service-health
+    rules:
+      # 서비스 재시작 감지
+      - alert: ServiceRestarted
+        expr: changes(process_start_time_seconds[10m]) > 0
+        labels:
+          severity: info
+        annotations:
+          summary: "서비스가 재시작되었습니다"
+          description: "{{ $labels.job }} 서비스가 최근 10분 내에 재시작되었습니다."
+
+      # 큐 대기 시간 높음
+      - alert: HighQueueWaitTime
+        expr: queue_wait_time_seconds > 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "요청 큐 대기 시간이 높습니다"
+          description: "요청이 큐에서 10초 이상 대기하고 있습니다."

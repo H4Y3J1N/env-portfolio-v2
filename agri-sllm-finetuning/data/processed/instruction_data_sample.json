@@ -1,0 +1,1504 @@
+[
+  {
+    "id": "agri_tool_001",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "다음 주 토요일 오전 10시의 예상 기온을 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-01-18T10:00:00\", \"location\": \"default_farm\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 8.5, \"unit\": \"celsius\", \"confidence\": 0.85}"
+      },
+      {
+        "role": "assistant",
+        "content": "다음 주 토요일 오전 10시의 예상 기온은 약 8.5°C입니다. (신뢰도: 85%)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_002",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "우리 농장에서 토마토를 500제곱미터에 심으면 수확량이 어느 정도 될까요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"tomato\", \"area_sqm\": 500}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 1750, \"yield_range\": {\"min\": 1500, \"max\": 2000}, \"confidence\": 0.82}"
+      },
+      {
+        "role": "assistant",
+        "content": "500제곱미터에서 토마토를 재배할 경우, 예상 수확량은 약 1,750kg입니다. (범위: 1,500~2,000kg, 신뢰도: 82%)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_003",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "우리 농장은 위도 37.5도, 경도 127.0도에 있어요. 오늘 최적의 패널 각도는 몇 도인가요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 37.5, \"longitude\": 127.0}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 32.5, \"azimuth\": 180, \"efficiency_gain\": 15.2}"
+      },
+      {
+        "role": "assistant",
+        "content": "위도 37.5도에 위치한 농장의 오늘 최적 패널 각도는 32.5도입니다. 정남향(방위각 180도)으로 설정하시면 최대 15.2%의 효율 향상을 기대할 수 있습니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_004",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "오늘 날씨 어때요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 12, \"humidity\": 65, \"condition\": \"partly_cloudy\", \"precipitation_probability\": 10}"
+      },
+      {
+        "role": "assistant",
+        "content": "오늘 날씨는 구름 조금 있고, 기온 12°C, 습도 65%입니다. 강수 확률은 10%로 낮아 야외 농작업하기 좋은 날씨입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_005",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "내일 아침 6시 기온이 궁금해요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-01-14T06:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 2.1, \"unit\": \"celsius\", \"confidence\": 0.88}"
+      },
+      {
+        "role": "assistant",
+        "content": "내일 아침 6시의 예상 기온은 약 2.1°C입니다. 서리가 내릴 수 있으니 작물 보호에 유의하세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_006",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "고추 300평방미터 심으면 얼마나 수확할 수 있을까요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"pepper\", \"area_sqm\": 300}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 525, \"yield_range\": {\"min\": 450, \"max\": 600}, \"confidence\": 0.80}"
+      },
+      {
+        "role": "assistant",
+        "content": "300제곱미터에서 고추를 재배하면 예상 수확량은 약 525kg입니다. (범위: 450~600kg)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_007",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "이번 주 금요일 날씨를 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {\"date\": \"2025-01-17\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature_high\": 8, \"temperature_low\": -2, \"condition\": \"sunny\", \"precipitation_probability\": 5}"
+      },
+      {
+        "role": "assistant",
+        "content": "이번 주 금요일(1월 17일) 날씨는 맑음이며, 최고 기온 8°C, 최저 기온 -2°C로 예상됩니다. 강수 확률은 5%로 매우 낮습니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_008",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "겨울철에는 패널 각도를 어떻게 설정해야 하나요? 우리 농장은 위도 35.2도, 경도 128.5도에 있어요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 35.2, \"longitude\": 128.5, \"date\": \"2025-01-15\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 45.2, \"azimuth\": 180, \"efficiency_gain\": 18.5, \"season\": \"winter\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "겨울철(1월 기준) 위도 35.2도 위치에서는 패널 각도를 45.2도로 설정하는 것이 최적입니다. 여름보다 약 10~15도 더 높은 각도입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_009",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "3월 15일에 파종 예정인데, 상추 1000제곱미터의 예상 수확량을 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"lettuce\", \"area_sqm\": 1000, \"planting_date\": \"2025-03-15\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 2800, \"yield_range\": {\"min\": 2500, \"max\": 3000}, \"confidence\": 0.85, \"harvest_date\": \"2025-04-20\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "3월 15일에 파종하여 1000제곱미터에서 상추를 재배하면, 예상 수확량은 약 2,800kg입니다. 예상 수확 시기는 4월 20일경입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_010",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "모레 오후 3시쯤 기온이 어떻게 될까요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-01-15T15:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 6.8, \"unit\": \"celsius\", \"confidence\": 0.87}"
+      },
+      {
+        "role": "assistant",
+        "content": "모레(1월 15일) 오후 3시의 예상 기온은 약 6.8°C입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_011",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "오전에 패널 각도를 어떻게 맞춰야 효율이 좋을까요? 위치는 위도 36.8, 경도 127.2입니다."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 36.8, \"longitude\": 127.2, \"time_of_day\": \"morning\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 35.0, \"azimuth\": 135, \"efficiency_gain\": 12.3, \"time_range\": \"06:00-10:00\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "오전 시간대(6시~10시)에는 패널 각도 35도, 방위각 135도(동남향)로 설정하시면 약 12.3%의 효율 향상을 얻을 수 있습니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_012",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "다음 주 날씨가 전반적으로 어떨지 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {\"date\": \"2025-01-20\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"weekly_forecast\": [{\"date\": \"2025-01-20\", \"condition\": \"cloudy\", \"temp_high\": 5, \"temp_low\": -3}, {\"date\": \"2025-01-21\", \"condition\": \"rain\", \"temp_high\": 7, \"temp_low\": 2}], \"summary\": \"초반 흐림, 후반 비 예상\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "다음 주 날씨는 초반에는 흐린 날씨(최고 5°C, 최저 -3°C)가 예상되고, 후반에는 비가 올 가능성이 있습니다. 야외 작업 계획 시 참고하세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_013",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "오이 200제곱미터 재배 시 예상 수확량이 궁금합니다."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"cucumber\", \"area_sqm\": 200}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 1400, \"yield_range\": {\"min\": 1200, \"max\": 1600}, \"confidence\": 0.78}"
+      },
+      {
+        "role": "assistant",
+        "content": "200제곱미터에서 오이를 재배하면 예상 수확량은 약 1,400kg입니다. (범위: 1,200~1,600kg)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_014",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "서리가 내릴지 확인하고 싶어요. 내일 새벽 5시 기온을 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-01-14T05:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": -1.5, \"unit\": \"celsius\", \"confidence\": 0.90, \"frost_warning\": true}"
+      },
+      {
+        "role": "assistant",
+        "content": "내일 새벽 5시 예상 기온은 -1.5°C입니다. 영하로 내려가므로 서리가 내릴 가능성이 높습니다. 작물 보호 조치를 권장드립니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_015",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "영농형 태양광에서 재배하기 좋은 작물은 뭐가 있나요?"
+      },
+      {
+        "role": "assistant",
+        "content": "영농형 태양광에서는 패널 아래 반음지 환경에서도 잘 자라는 작물이 적합합니다.\n\n추천 작물:\n1. **엽채류**: 상추, 시금치, 배추 - 직사광선보다 반음지 선호\n2. **약용작물**: 인삼, 더덕 - 그늘을 필요로 함\n3. **버섯류**: 표고버섯 등\n\n토마토나 고추 같은 과채류는 일조량이 많이 필요하므로 패널 간격을 넓게 설계해야 합니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_016",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "정오에 최적의 패널 각도는? 위도 38.0, 경도 127.5에요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 38.0, \"longitude\": 127.5, \"time_of_day\": \"noon\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 38.0, \"azimuth\": 180, \"efficiency_gain\": 20.1, \"time_range\": \"10:00-14:00\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "정오 시간대(10시~14시)에는 패널 각도 38도, 정남향(방위각 180도)으로 설정하세요. 이 설정으로 약 20.1%의 효율 향상을 기대할 수 있습니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_017",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "비가 올 것 같은데 농장 날씨 확인해주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 9, \"humidity\": 85, \"condition\": \"overcast\", \"precipitation_probability\": 70, \"expected_rainfall_mm\": 5}"
+      },
+      {
+        "role": "assistant",
+        "content": "현재 날씨는 흐리고 습도가 85%로 높습니다. 강수 확률이 70%로 비가 올 가능성이 높으며, 예상 강수량은 약 5mm입니다. 야외 작업을 미루시는 것이 좋겠습니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_018",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "토마토 최적 재배 온도가 몇 도인지 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "토마토의 최적 재배 온도는 다음과 같습니다:\n\n- **낮 온도**: 25~28°C\n- **밤 온도**: 15~18°C\n- **생육 적온**: 20~25°C\n\n주의사항:\n- 10°C 이하에서는 생육이 멈춤\n- 35°C 이상에서는 착과 불량 발생\n- 일교차가 10°C 내외일 때 당도가 높아짐"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_019",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "시금치 800제곱미터 재배하면 수확량이 얼마나 될까요? 4월 1일에 파종할 예정입니다."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"spinach\", \"area_sqm\": 800, \"planting_date\": \"2025-04-01\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 1920, \"yield_range\": {\"min\": 1600, \"max\": 2400}, \"confidence\": 0.83, \"harvest_date\": \"2025-05-10\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "4월 1일 파종 기준, 800제곱미터에서 시금치를 재배하면 예상 수확량은 약 1,920kg입니다. (범위: 1,600~2,400kg) 예상 수확 시기는 5월 10일경입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_020",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "1월 25일 정오 기온 예측해주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-01-25T12:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 4.2, \"unit\": \"celsius\", \"confidence\": 0.75}"
+      },
+      {
+        "role": "assistant",
+        "content": "1월 25일 정오의 예상 기온은 약 4.2°C입니다. (신뢰도: 75%)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_021",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "오후 시간대 패널 각도 최적화해주세요. 농장 위치는 위도 34.5, 경도 126.8입니다."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 34.5, \"longitude\": 126.8, \"time_of_day\": \"afternoon\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 30.5, \"azimuth\": 225, \"efficiency_gain\": 11.8, \"time_range\": \"14:00-18:00\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "오후 시간대(14시~18시)에는 패널 각도 30.5도, 방위각 225도(서남향)로 설정하시면 약 11.8%의 효율 향상을 얻을 수 있습니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_022",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "내일 비가 올까요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {\"date\": \"2025-01-14\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature_high\": 6, \"temperature_low\": 0, \"condition\": \"cloudy\", \"precipitation_probability\": 30}"
+      },
+      {
+        "role": "assistant",
+        "content": "내일(1월 14일)은 흐린 날씨이며, 강수 확률은 30%입니다. 비가 올 가능성이 있지만 높지는 않습니다. 최고 기온 6°C, 최저 기온 0°C로 예상됩니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_023",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "배추 600제곱미터 수확량 예측해주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"chinese_cabbage\", \"area_sqm\": 600}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 4200, \"yield_range\": {\"min\": 3600, \"max\": 4800}, \"confidence\": 0.81}"
+      },
+      {
+        "role": "assistant",
+        "content": "600제곱미터에서 배추를 재배하면 예상 수확량은 약 4,200kg입니다. (범위: 3,600~4,800kg)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_024",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "태양광 패널 청소는 얼마나 자주 해야 하나요?"
+      },
+      {
+        "role": "assistant",
+        "content": "태양광 패널 청소 권장 주기는 다음과 같습니다:\n\n**기본 주기**: 월 1~2회\n\n**상황별 조정**:\n- 황사/미세먼지 심한 시기: 주 1회\n- 꽃가루 시즌(봄): 주 1~2회\n- 겨울철 눈 쌓임: 즉시 제거\n- 새똥, 낙엽 등: 발견 시 즉시\n\n**청소 시 주의사항**:\n- 고온 시간대(정오~오후 2시) 피하기\n- 부드러운 천과 물 사용\n- 연마제, 강한 세제 사용 금지\n- 패널 표면 긁힘 주의"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_025",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "7월 중순 오후 2시쯤 기온이 어떨 것 같아요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-07-15T14:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 32.5, \"unit\": \"celsius\", \"confidence\": 0.70, \"heat_warning\": true}"
+      },
+      {
+        "role": "assistant",
+        "content": "7월 15일 오후 2시의 예상 기온은 약 32.5°C입니다. 고온 주의보 수준이므로 한낮 야외 작업을 피하고, 작물 수분 관리에 유의하세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_026",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "여름철 패널 최적 각도를 알려주세요. 위도 36.5, 경도 127.0입니다."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 36.5, \"longitude\": 127.0, \"date\": \"2025-07-01\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 20.5, \"azimuth\": 180, \"efficiency_gain\": 22.3, \"season\": \"summer\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "여름철(7월 기준) 위도 36.5도 위치에서는 패널 각도를 20.5도로 낮게 설정하는 것이 최적입니다. 태양 고도가 높아지기 때문에 겨울보다 약 15~20도 낮은 각도입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_027",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "이번 주말 날씨가 농작업하기 좋을까요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {\"date\": \"2025-01-18\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"saturday\": {\"condition\": \"sunny\", \"temp_high\": 7, \"temp_low\": -1, \"wind\": 3}, \"sunday\": {\"condition\": \"partly_cloudy\", \"temp_high\": 9, \"temp_low\": 1, \"wind\": 5}}"
+      },
+      {
+        "role": "assistant",
+        "content": "이번 주말 날씨 예보입니다:\n\n**토요일**: 맑음, 7°C / -1°C, 바람 약함\n**일요일**: 구름 조금, 9°C / 1°C, 바람 약간\n\n두 날 모두 강수 확률이 낮고 바람도 약해서 야외 농작업하기 좋은 날씨입니다. 토요일이 더 좋은 조건입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_028",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "딸기 400제곱미터 재배하면 수확량이 얼마나 될까요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"strawberry\", \"area_sqm\": 400}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 1200, \"yield_range\": {\"min\": 1000, \"max\": 1400}, \"confidence\": 0.79}"
+      },
+      {
+        "role": "assistant",
+        "content": "400제곱미터에서 딸기를 재배하면 예상 수확량은 약 1,200kg입니다. (범위: 1,000~1,400kg)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_029",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "수확량 예측해줘"
+      },
+      {
+        "role": "assistant",
+        "content": "수확량 예측을 위해 몇 가지 정보가 필요합니다:\n\n1. **작물 종류**: 어떤 작물을 재배하시나요? (예: 토마토, 고추, 상추 등)\n2. **재배 면적**: 몇 제곱미터(㎡)에서 재배하시나요?\n\n추가로 파종일을 알려주시면 더 정확한 예측이 가능합니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "error_handling",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_030",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "2월 초 새벽 기온이 궁금해요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-02-03T05:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": -5.2, \"unit\": \"celsius\", \"confidence\": 0.72, \"frost_warning\": true}"
+      },
+      {
+        "role": "assistant",
+        "content": "2월 3일 새벽 5시의 예상 기온은 약 -5.2°C입니다. 강한 서리가 예상되므로 월동 작물 보호에 각별히 유의하세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_031",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "패널 각도 최적화해줘"
+      },
+      {
+        "role": "assistant",
+        "content": "패널 각도 최적화를 위해 농장 위치 정보가 필요합니다:\n\n1. **위도**: 농장의 위도를 알려주세요 (예: 37.5)\n2. **경도**: 농장의 경도를 알려주세요 (예: 127.0)\n\n추가로 특정 시간대나 계절에 맞춘 최적화를 원하시면 말씀해주세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "error_handling",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_032",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "우리 농장(위도 37.2, 경도 127.3)에서 봄철 패널 각도는 어떻게 설정해야 하나요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 37.2, \"longitude\": 127.3, \"date\": \"2025-04-15\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 28.2, \"azimuth\": 180, \"efficiency_gain\": 17.8, \"season\": \"spring\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "봄철(4월 기준) 위도 37.2도 위치에서는 패널 각도를 28.2도로 설정하는 것이 최적입니다. 겨울(약 45도)과 여름(약 20도)의 중간 정도입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_033",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "주간 날씨 예보 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"weekly_forecast\": [{\"day\": \"월\", \"condition\": \"sunny\", \"high\": 5, \"low\": -2}, {\"day\": \"화\", \"condition\": \"cloudy\", \"high\": 6, \"low\": 0}, {\"day\": \"수\", \"condition\": \"rain\", \"high\": 8, \"low\": 3}, {\"day\": \"목\", \"condition\": \"cloudy\", \"high\": 4, \"low\": -1}, {\"day\": \"금\", \"condition\": \"sunny\", \"high\": 7, \"low\": -2}]}"
+      },
+      {
+        "role": "assistant",
+        "content": "이번 주 날씨 예보입니다:\n\n| 요일 | 날씨 | 최고 | 최저 |\n|------|------|------|------|\n| 월 | 맑음 | 5°C | -2°C |\n| 화 | 흐림 | 6°C | 0°C |\n| 수 | 비 | 8°C | 3°C |\n| 목 | 흐림 | 4°C | -1°C |\n| 금 | 맑음 | 7°C | -2°C |\n\n수요일에 비가 예상되니 야외 작업은 월/화 또는 금요일에 계획하세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_034",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "무 700제곱미터 수확량 예측해주세요. 9월 1일 파종 예정입니다."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"radish\", \"area_sqm\": 700, \"planting_date\": \"2025-09-01\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 5600, \"yield_range\": {\"min\": 4900, \"max\": 6300}, \"confidence\": 0.84, \"harvest_date\": \"2025-11-01\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "9월 1일 파종 기준, 700제곱미터에서 무를 재배하면 예상 수확량은 약 5,600kg입니다. (범위: 4,900~6,300kg) 예상 수확 시기는 11월 1일경입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_035",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "오늘 밤 10시 기온 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-01-13T22:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 1.3, \"unit\": \"celsius\", \"confidence\": 0.91}"
+      },
+      {
+        "role": "assistant",
+        "content": "오늘 밤 10시의 예상 기온은 약 1.3°C입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_036",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "가을철 최적 패널 각도가 궁금해요. 위도 35.8, 경도 128.2입니다."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 35.8, \"longitude\": 128.2, \"date\": \"2025-10-15\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 38.8, \"azimuth\": 180, \"efficiency_gain\": 16.5, \"season\": \"autumn\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "가을철(10월 기준) 위도 35.8도 위치에서는 패널 각도를 38.8도로 설정하는 것이 최적입니다. 봄보다 약간 높은 각도입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_037",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "파프리카 수확량을 알고 싶어요"
+      },
+      {
+        "role": "assistant",
+        "content": "파프리카 수확량 예측을 위해 재배 면적이 필요합니다. 몇 제곱미터(㎡)에서 재배하시나요?"
+      },
+      {
+        "role": "user",
+        "content": "350제곱미터요"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"paprika\", \"area_sqm\": 350}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 1225, \"yield_range\": {\"min\": 1050, \"max\": 1400}, \"confidence\": 0.77}"
+      },
+      {
+        "role": "assistant",
+        "content": "350제곱미터에서 파프리카를 재배하면 예상 수확량은 약 1,225kg입니다. (범위: 1,050~1,400kg)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "multi_turn",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_038",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "오늘 습도는 어때요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 8, \"humidity\": 55, \"condition\": \"clear\", \"wind_speed\": 2.5}"
+      },
+      {
+        "role": "assistant",
+        "content": "현재 습도는 55%로 적당한 수준입니다. 농작물 재배에 좋은 습도입니다. 기온은 8°C, 맑은 날씨입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_039",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "5월 1일 오전 9시 기온 예측해주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-05-01T09:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 16.8, \"unit\": \"celsius\", \"confidence\": 0.68}"
+      },
+      {
+        "role": "assistant",
+        "content": "5월 1일 오전 9시의 예상 기온은 약 16.8°C입니다. 봄 농작업하기 좋은 온도입니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_040",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "제주도 농장(위도 33.5, 경도 126.5)의 최적 패널 각도를 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 33.5, \"longitude\": 126.5}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 28.5, \"azimuth\": 180, \"efficiency_gain\": 14.2}"
+      },
+      {
+        "role": "assistant",
+        "content": "제주도(위도 33.5도) 농장의 연중 평균 최적 패널 각도는 28.5도입니다. 본토보다 위도가 낮아서 패널 각도도 약간 낮게 설정합니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_041",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "안녕하세요!"
+      },
+      {
+        "role": "assistant",
+        "content": "안녕하세요! 영농형 태양광 전문 AI 어시스턴트입니다.\n\n다음과 같은 도움을 드릴 수 있습니다:\n- 작물 수확량 예측\n- 기온 예측\n- 태양광 패널 각도 최적화\n- 기상 정보 조회\n\n무엇을 도와드릴까요?"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_042",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "콩 450제곱미터 수확량을 예측해주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"soybean\", \"area_sqm\": 450}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 135, \"yield_range\": {\"min\": 112, \"max\": 158}, \"confidence\": 0.80}"
+      },
+      {
+        "role": "assistant",
+        "content": "450제곱미터에서 콩을 재배하면 예상 수확량은 약 135kg입니다. (범위: 112~158kg)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_043",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "내일 바람이 많이 불까요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {\"date\": \"2025-01-14\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature_high\": 7, \"temperature_low\": -1, \"condition\": \"windy\", \"wind_speed\": 8.5, \"wind_direction\": \"NW\"}"
+      },
+      {
+        "role": "assistant",
+        "content": "내일은 바람이 다소 강할 것으로 예상됩니다. 풍속 8.5m/s(북서풍)로 비닐하우스나 가벼운 자재 고정에 유의하세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "get_weather",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_044",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "8월 중순 한낮 기온이 어떨 것 같아요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-08-15T13:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 34.2, \"unit\": \"celsius\", \"confidence\": 0.65, \"heat_warning\": true}"
+      },
+      {
+        "role": "assistant",
+        "content": "8월 15일 오후 1시의 예상 기온은 약 34.2°C입니다. 폭염 수준이므로 한낮 야외 작업은 피하시고, 작물 수분 관리와 그늘막 설치를 권장합니다."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_045",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "강원도 농장(위도 37.8, 경도 128.9)에서 겨울철 패널 관리는 어떻게 해야 하나요?"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"optimize_panel_angle\", \"arguments\": {\"latitude\": 37.8, \"longitude\": 128.9, \"date\": \"2025-01-15\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"optimal_angle\": 47.8, \"azimuth\": 180, \"efficiency_gain\": 19.5, \"season\": \"winter\", \"snow_warning\": true}"
+      },
+      {
+        "role": "assistant",
+        "content": "강원도(위도 37.8도) 겨울철 패널 관리 방법입니다:\n\n**각도 설정**: 47.8도 (눈이 미끄러져 내리기 좋은 각도)\n\n**겨울철 관리 포인트**:\n1. 눈이 쌓이면 즉시 제거 (발전량 급감 방지)\n2. 높은 각도 유지로 눈 자연 낙하 유도\n3. 결빙 시 무리한 제거 금지\n4. 월 1회 이상 패널 상태 점검"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "optimize_panel_angle",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_046",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "마늘 250제곱미터 수확량이 궁금해요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"garlic\", \"area_sqm\": 250}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 375, \"yield_range\": {\"min\": 312, \"max\": 437}, \"confidence\": 0.82}"
+      },
+      {
+        "role": "assistant",
+        "content": "250제곱미터에서 마늘을 재배하면 예상 수확량은 약 375kg입니다. (범위: 312~437kg)"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_047",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "서울 주식 시세 알려줘"
+      },
+      {
+        "role": "assistant",
+        "content": "죄송합니다. 저는 영농형 태양광 전문 AI로 주식 시세 정보는 제공하지 않습니다.\n\n제가 도움드릴 수 있는 분야는:\n- 작물 수확량 예측\n- 기온 예측\n- 태양광 패널 각도 최적화\n- 기상 정보 조회\n\n입니다. 농업 관련 질문이 있으시면 말씀해주세요!"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "rejection",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_048",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "12월 31일 자정 기온을 예측해주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_temperature\", \"arguments\": {\"datetime\": \"2025-12-31T00:00:00\"}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": -7.3, \"unit\": \"celsius\", \"confidence\": 0.62, \"frost_warning\": true}"
+      },
+      {
+        "role": "assistant",
+        "content": "12월 31일 자정의 예상 기온은 약 -7.3°C입니다. 매우 추운 날씨가 예상되니 월동 작물 보온과 수도관 동파 예방에 유의하세요."
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_temperature",
+      "complexity": "simple",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_049",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "비닐하우스 안에서 재배하면 수확량이 달라지나요?"
+      },
+      {
+        "role": "assistant",
+        "content": "네, 비닐하우스 재배는 노지 재배와 수확량이 다릅니다.\n\n**비닐하우스의 장점**:\n- 온도 관리 가능 → 재배 기간 연장\n- 병해충 감소 → 품질 향상\n- 기상 영향 최소화 → 안정적 생산\n\n**수확량 비교** (예시):\n| 작물 | 노지 | 하우스 | 증가율 |\n|------|------|--------|--------|\n| 토마토 | 3.5kg/㎡ | 5.0kg/㎡ | +43% |\n| 딸기 | 2.5kg/㎡ | 4.0kg/㎡ | +60% |\n| 상추 | 2.8kg/㎡ | 3.5kg/㎡ | +25% |\n\n정확한 예측을 원하시면 작물과 면적을 알려주세요!"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "none",
+      "complexity": "medium",
+      "created_at": "2025-01-07"
+    }
+  },
+  {
+    "id": "agri_tool_050",
+    "conversations": [
+      {
+        "role": "system",
+        "content": "당신은 영농형 태양광 전문 AI 어시스턴트입니다. 다음 도구들을 사용할 수 있습니다:\n1. predict_yield: 작물 수확량 예측\n2. predict_temperature: 기온 예측\n3. optimize_panel_angle: 패널 각도 최적화\n4. get_weather: 기상 정보 조회"
+      },
+      {
+        "role": "user",
+        "content": "양파 1000제곱미터 재배 시 예상 수확량과 오늘 날씨를 함께 알려주세요."
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"predict_yield\", \"arguments\": {\"crop_type\": \"onion\", \"area_sqm\": 1000}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"predicted_yield_kg\": 4500, \"yield_range\": {\"min\": 4000, \"max\": 5000}, \"confidence\": 0.83}"
+      },
+      {
+        "role": "assistant",
+        "content": "<tool_call>{\"name\": \"get_weather\", \"arguments\": {}}</tool_call>"
+      },
+      {
+        "role": "tool",
+        "content": "{\"temperature\": 10, \"humidity\": 60, \"condition\": \"sunny\", \"precipitation_probability\": 5}"
+      },
+      {
+        "role": "assistant",
+        "content": "**양파 수확량 예측**:\n1000제곱미터에서 양파를 재배하면 예상 수확량은 약 4,500kg입니다. (범위: 4,000~5,000kg)\n\n**오늘 날씨**:\n- 맑음, 기온 10°C\n- 습도 60%\n- 강수 확률 5%\n\n야외 농작업하기 좋은 날씨입니다!"
+      }
+    ],
+    "metadata": {
+      "domain": "agriculture",
+      "tool_used": "predict_yield,get_weather",
+      "complexity": "multi_tool",
+      "created_at": "2025-01-07"
+    }
+  }
+]

@@ -1,0 +1,30 @@
+# ===========================================
+# Semantic Chunking Configuration
+# ===========================================
+
+chunking:
+  strategy: "semantic"
+  embedding_model: "BAAI/bge-m3"
+  similarity_threshold: 0.70    # 유사도 임계값 (이하에서 분할)
+  min_chunk_size: 200           # 최소 단어 수
+  max_chunk_size: 800           # 최대 단어 수
+  buffer_size: 1                # 전후 문장 고려 수
+  percentile_threshold: 25      # 유사도 백분위수 기반 임계값 (옵션)
+
+embedding:
+  model_name: "BAAI/bge-m3"
+  batch_size: 32
+  normalize: true
+  device: "auto"
+
+retrieval:
+  top_k: 5
+  similarity_metric: "cosine"
+
+evaluation:
+  metrics:
+    - "precision"
+    - "recall"
+    - "f1"
+    - "mrr"
+  k_values: [1, 3, 5, 10]

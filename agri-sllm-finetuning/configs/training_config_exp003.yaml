@@ -1,0 +1,64 @@
+# 실험 3: LoRA Rank 조정
+# 목표: LoRA Rank를 조정하여 표현력 vs 효율성 균형 찾기
+# 가설: Rank 증가로 더 복잡한 패턴 학습 가능
+
+experiment:
+  name: "exp-003"
+  description: "Increased LoRA rank for better expressiveness"
+
+model:
+  base_model: "Qwen/Qwen2.5-7B-Instruct"
+  load_in_4bit: true
+  bnb_4bit_quant_type: "nf4"
+  bnb_4bit_compute_dtype: "bfloat16"
+  bnb_4bit_use_double_quant: true
+  trust_remote_code: true
+
+lora:
+  r: 32  # 16 → 32 (증가)
+  lora_alpha: 64  # 32 → 64 (증가, alpha = 2 * r)
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+  lora_dropout: 0.05
+  bias: "none"
+  task_type: "CAUSAL_LM"
+
+training:
+  num_train_epochs: 5
+  per_device_train_batch_size: 8
+  per_device_eval_batch_size: 8
+  gradient_accumulation_steps: 2
+  learning_rate: 1.0e-4
+  weight_decay: 0.01
+  warmup_steps: 100
+  logging_steps: 10
+  save_steps: 100
+  eval_steps: 100
+  save_total_limit: 3
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+
+optimizer:
+  optim: "paged_adamw_8bit"
+  lr_scheduler_type: "cosine"
+
+data:
+  train_file: "data/processed/train.json"
+  val_file: "data/processed/val.json"
+  max_seq_length: 2048
+  dataset_text_field: "text"
+
+misc:
+  fp16: false
+  bf16: true
+  max_grad_norm: 0.3
+  seed: 42
+  output_dir: "results/exp-003"
+  report_to: "none"

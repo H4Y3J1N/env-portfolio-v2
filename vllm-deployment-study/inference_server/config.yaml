@@ -1,0 +1,49 @@
+# ===========================================
+# vLLM Inference Server Configuration
+# ===========================================
+
+# 모델 설정
+model:
+  name: "Qwen/Qwen2.5-7B-Instruct-AWQ"
+  tokenizer: null  # Same as model
+  quantization: "awq"  # 4-bit AWQ quantization
+  dtype: "auto"
+  trust_remote_code: true
+
+# vLLM 엔진 설정
+engine:
+  # GPU 메모리 사용률 (0.0 ~ 1.0)
+  # - 0.70: 안전 모드 (개발/테스트)
+  # - 0.90: 프로덕션 권장
+  # - 0.95: 최대 처리량 (OOM 위험)
+  gpu_memory_utilization: 0.90
+
+  # Continuous Batching 설정
+  max_num_batched_tokens: 8192  # 배치 내 최대 토큰 수
+  max_num_seqs: 256             # 동시 처리 가능한 최대 시퀀스 수
+
+  # 시퀀스 길이 제한
+  max_model_len: 4096           # 최대 시퀀스 길이
+
+  # KV Cache 블록 크기 (PagedAttention)
+  block_size: 16
+
+  # Prefix Caching (선택적)
+  enable_prefix_caching: false
+
+  # 로깅
+  disable_log_stats: false
+
+# 서버 설정
+server:
+  host: "0.0.0.0"
+  port: 8001
+  timeout: 600  # 10분 타임아웃
+
+# 샘플링 기본값
+sampling_defaults:
+  temperature: 0.7
+  top_p: 0.9
+  top_k: 50
+  max_tokens: 512
+  repetition_penalty: 1.0
